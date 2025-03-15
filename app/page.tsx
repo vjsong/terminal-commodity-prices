@@ -27,20 +27,19 @@ export default function Home() {
           <div className="space-y-4">
             <div className="border-b border-green-800 pb-2">
               <p className="text-xs text-green-400">$ whoami</p>
-              <h1 className="text-xl font-bold">John Doe</h1>
-              <p className="text-sm opacity-80">Software Engineer | Commodity Enthusiast</p>
+              <h1 className="text-xl font-bold">Vincent Song</h1>
+              <p className="text-sm opacity-80">Metals Trader</p>
             </div>
 
             <div className="border-b border-green-800 pb-2">
-              <p className="text-xs text-green-400">$ cat about.txt</p>
+              <p className="text-xs text-green-400">$about.txt</p>
               <p className="text-sm mt-1">
-                Welcome to my terminal. I'm a software engineer with an interest in commodity markets. This page
-                displays real-time prices of key metals and minerals.
+                I am a metals trader and co-founder of Caladan Industries, a commodity trading and recycling firm focused on non-ferrous metals critical to the energy transition.
               </p>
             </div>
 
             <div className="border-b border-green-800 pb-4">
-              <p className="text-xs text-green-400">$ ./fetch-metal-prices</p>
+              <p className="text-xs text-green-400">$ ./fetch-copper-price</p>
               <div className="mt-2">
                 <DailyMetalPriceWidget />
               </div>
