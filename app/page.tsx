@@ -35,6 +35,7 @@ export default function Home() {
               <p className="text-xs text-green-400">$about.txt</p>
               <p className="text-sm mt-1">
                 I am a metals trader and co-founder of Caladan Industries, a commodity trading and recycling firm focused on non-ferrous metals critical to the energy transition.
+                I love learning about commodity markets, and have a deep interest in geopolitics and industrial history. Previously, I worked for tech startups and studied Earth Sciences at Stanford University.
               </p>
             </div>
 
