@@ -35,7 +35,7 @@ export default function Home() {
               <p className="text-xs text-green-400">$about.txt</p>
               <p className="text-sm mt-1">
                 I am a metals trader and co-founder of Caladan Industries, a commodity trading and recycling firm focused on non-ferrous metals critical to the energy transition.
-                I love learning about commodity markets, and have a deep interest in geopolitics and industrial history. Previously, I worked for tech startups and studied Earth Sciences at Stanford University.
+                Previously, I worked for tech startups and studied Earth Sciences at Stanford University.
               </p>
             </div>
 
@@ -60,24 +60,6 @@ export default function Home() {
                   <span className="text-green-300 mr-2">-rw-r--r--</span>
                   <span>copper-outlook.txt</span>
                   <span className="ml-auto text-green-700 text-xs">Last updated: 2023-08-22</span>
-                </Link>
-                <Link href="/gold-analysis" className="flex items-center hover:bg-green-900/30 p-1 rounded">
-                  <FileText className="h-4 w-4 mr-2 text-green-400" />
-                  <span className="text-green-300 mr-2">-rw-r--r--</span>
-                  <span>gold-analysis.txt</span>
-                  <span className="ml-auto text-green-700 text-xs">Last updated: 2023-09-05</span>
-                </Link>
-                <Link href="/lithium-market" className="flex items-center hover:bg-green-900/30 p-1 rounded">
-                  <FileText className="h-4 w-4 mr-2 text-green-400" />
-                  <span className="text-green-300 mr-2">-rw-r--r--</span>
-                  <span>lithium-market.txt</span>
-                  <span className="ml-auto text-green-700 text-xs">Last updated: 2023-09-18</span>
-                </Link>
-                <Link href="/silver-trends" className="flex items-center hover:bg-green-900/30 p-1 rounded">
-                  <FileText className="h-4 w-4 mr-2 text-green-400" />
-                  <span className="text-green-300 mr-2">-rw-r--r--</span>
-                  <span>silver-trends.txt</span>
-                  <span className="ml-auto text-green-700 text-xs">Last updated: 2023-10-01</span>
                 </Link>
               </div>
             </div>
