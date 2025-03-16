@@ -78,7 +78,7 @@ function MiniSymbolWidget({ symbol, containerId }: { symbol: string; containerId
     script.async = true
     script.innerHTML = JSON.stringify({
       "symbol": symbol,
-      "width": "350",
+      "width": "100%",
       "height": "220",
       "locale": "en",
       "dateRange": "12M",
@@ -88,7 +88,7 @@ function MiniSymbolWidget({ symbol, containerId }: { symbol: string; containerId
       "largeChartUrl": "",
       "trendLineColor": "rgba(34, 197, 94, 1)",
       "underLineColor": "rgba(34, 197, 94, 0.1)",
-      "underLineBottomColor": "rgba(34, 197, 94, 0.15)",
+      "underLineBottomColor": "rgba(34, 197, 94, 0.6)",
       "chartOnly": false,
       "noTimeScale": false,
       "gridLineColor": "rgba(255, 255, 255, 0.1)"
@@ -104,7 +104,7 @@ function MiniSymbolWidget({ symbol, containerId }: { symbol: string; containerId
   }, [symbol])
 
   return (
-    <div className="tradingview-widget-container w-[360px] h-[220px]" ref={container}>
+    <div className="tradingview-widget-container w-full h-[220px]" ref={container}>
       <div className="tradingview-widget-container__widget h-full"></div>
     </div>
   )
@@ -119,13 +119,13 @@ function MetalPriceGrid() {
   ]
 
   return (
-    <div className="w-full px-4 py-6">
+    <div className="w-full py-6">
       <TickerTapeWidget />
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 place-items-center">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
         {metals.map((metal, index) => (
           <div 
             key={metal.symbol}
-            className="bg-black overflow-hidden w-[350px] rounded-lg border border-white/20"
+            className="bg-black overflow-hidden w-full max-w-[500px] rounded-lg border border-white/20"
           >
             <MiniSymbolWidget 
               symbol={metal.symbol} 

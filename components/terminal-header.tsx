@@ -20,14 +20,14 @@ export default function TerminalHeader({ currentTime }: TerminalHeaderProps) {
   })
 
   return (
-    <div className="flex justify-between items-center border-b border-green-800 pb-2">
-      <div className="flex items-center gap-2">
-        <Clock className="h-4 w-4" />
-        <span className="text-sm">
+    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center border-b border-green-800 pb-2">
+      <div className="flex items-center gap-2 w-full sm:w-auto">
+        <Clock className="h-4 w-4 flex-shrink-0" />
+        <span className="text-sm whitespace-nowrap">
           {formattedDate} {formattedTime}
         </span>
       </div>
-      <div className="text-sm">
+      <div className="text-sm mt-2 sm:mt-0">
         <span className="bg-green-900 px-2 py-0.5 rounded text-green-300">TERMINAL v1.0</span>
       </div>
     </div>
