@@ -3,6 +3,7 @@ import { Clock } from "lucide-react"
 import Link from "next/link"
 import { Terminal } from "@/components/ui/terminal"
 import { parseTextWithLinks } from "@/lib/parse-text-links"
+import TerminalHeader from "@/components/terminal-header"
 
 interface PlaintextLayoutProps {
   title: string
@@ -34,18 +35,7 @@ export default function PlaintextLayout({ title, filename, lastUpdated, children
   return (
     <main className="min-h-screen bg-black text-green-500 font-mono p-4">
       <div className="container mx-auto max-w-4xl">
-        <div className="flex justify-between items-center border-b border-green-800 pb-2">
-          <div className="flex items-center gap-2">
-            <Clock className="h-4 w-4" />
-            <span className="text-sm">
-              {formattedDate} {formattedTime}
-            </span>
-          </div>
-          <div className="text-sm">
-            <span className="bg-green-900 px-2 py-0.5 rounded text-green-300">TERMINAL v1.0</span>
-          </div>
-        </div>
-
+        <TerminalHeader currentTime={currentTime} />
         <Terminal className="mt-4">
           <div className="space-y-4">
             <div className="border-b border-green-800 pb-2 flex justify-between items-center">
