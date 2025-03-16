@@ -1,67 +1,101 @@
 "use client"
 
-import { useEffect, useRef } from "react"
-import Script from "next/script"
+import { useEffect } from "react"
 
 export default function DailyMetalPriceWidget() {
-  const widgetLoaded = useRef({ charts: false, prices: false })
-
-  useEffect(() => {
-    // This ensures we don't try to initialize the widgets multiple times
-    if (widgetLoaded.current.charts && widgetLoaded.current.prices) return
-
-    // Check if the pym.js script has already been loaded and initialized
-    if (window.pym) {
-      if (!widgetLoaded.current.charts) {
-        new window.pym.Parent("DMPC_1", "//dailymetalprice.com/charts.php?dark&bg=111827&text=ffffff", {})
-        widgetLoaded.current.charts = true
-      }
-      if (!widgetLoaded.current.prices) {
-        new window.pym.Parent("DMP_1", "//dailymetalprice.com/prices.php?dark&bg=111827&text=ffffff", {})
-        widgetLoaded.current.prices = true
-      }
-    }
-  }, [])
-
   return (
-    <div className="metal-price-widget bg-gray-900 p-6 rounded-lg shadow-xl">
-      {/* Container for both widgets with responsive layout */}
-      <div className="flex flex-col lg:flex-row gap-6">
-        {/* Charts widget */}
-        <div className="flex-1">
-          <div id="DMPC_1" data-pym-src="//dailymetalprice.com/charts.php?dark&bg=111827&text=ffffff" className="w-full min-h-[400px] rounded-md overflow-hidden"></div>
+    <div className="metal-price-widget">
+      <div className="tradingview-widget-container">
+        <div className="tradingview-widget-container__widget"></div>
+        <div className="tradingview-widget-copyright">
+          <a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank">
+            <span className="blue-text">Track all markets on TradingView</span>
+          </a>
         </div>
-        
-        {/* Prices widget */}
-        <div className="flex-1">
-          <div id="DMP_1" data-pym-src="//dailymetalprice.com/prices.php?dark&bg=111827&text=ffffff" className="w-full min-h-[400px] rounded-md overflow-hidden"></div>
-        </div>
+        <script
+          type="text/javascript"
+          src="https://s3.tradingview.com/external-embedding/embed-widget-market-quotes.js"
+          async
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              title: "Commodities",
+              width: "100%", 
+              height: "100%",
+              locale: "en",
+              showSymbolLogo: true,
+              symbolsGroups: [
+                {
+                  name: "Energy",
+                  symbols: [
+                    { name: "NYMEX:CL1!", displayName: "WTI Crude Oil" },
+                    { name: "NYMEX:NG1!", displayName: "Gas" },
+                    { name: "TVC:UKOIL", displayName: "Brent Oil" },
+                    { name: "NYMEX:RB1!", displayName: "Gasoline" },
+                    { name: "NYMEX:HO1!", displayName: "Heating Oil" },
+                    { name: "NYMEX:AEZ1!", displayName: "Ethanol" }
+                  ]
+                },
+                {
+                  name: "Metals",
+                  symbols: [
+                    { name: "COMEX:GC1!", displayName: "Gold" },
+                    { name: "COMEX:SI1!", displayName: "Silver" },
+                    { name: "NYMEX:PL1!", displayName: "Platinum" },
+                    { name: "COMEX_MINI:QC1!", displayName: "Copper" },
+                    { name: "COMEX:ZNC1!", displayName: "Zinc" },
+                    { name: "COMEX:TIO1!", displayName: "Iron Ore" }
+                  ]
+                },
+                {
+                  name: "Agricultural",
+                  symbols: [
+                    { name: "NYMEX:KT1!", displayName: "Coffee" },
+                    { name: "NYMEX:TT1!", displayName: "Cotton" },
+                    { name: "CBOT:ZS1!", displayName: "Soybean" },
+                    { name: "CBOT:ZW1!", displayName: "Wheat" },
+                    { name: "NYMEX:YO1!", displayName: "Sugar" },
+                    { name: "CBOT:ZC1!", displayName: "Corn" }
+                  ]
+                },
+                {
+                  name: "Currencies",
+                  symbols: [
+                    { name: "CME:6E1!", displayName: "Euro" },
+                    { name: "CME:6B1!", displayName: "British Pound" },
+                    { name: "CME:6J1!", displayName: "Japanese Yen" },
+                    { name: "CME:6S1!", displayName: "Swiss Franc" },
+                    { name: "CME:6A1!", displayName: "Australian Dollar" },
+                    { name: "CME:6C1!", displayName: "Canadian Dollar" }
+                  ]
+                },
+                {
+                  name: "Indices",
+                  symbols: [
+                    { name: "CME_MINI:ES1!", displayName: "S&P 500" },
+                    { name: "CME_MINI:NQ1!", displayName: "Nasdaq 100" },
+                    { name: "CBOT_MINI:YM1!", displayName: "Dow 30" },
+                    { name: "CME:NKD1!", displayName: "Nikkei 225" },
+                    { name: "EUREX:FDAX1!", displayName: "DAX" },
+                    { name: "CME:IBV1!", displayName: "IBovespa" }
+                  ]
+                },
+                {
+                  name: "Interest Rates",
+                  symbols: [
+                    { name: "CBOT:ZN1!", displayName: "10-Year T-Note" },
+                    { name: "CBOT:ZF1!", displayName: "5-Year T-Note" },
+                    { name: "CBOT:Z3N1!", displayName: "3-Year T-Note" },
+                    { name: "CBOT:ZT1!", displayName: "2-Year T-Note" },
+                    { name: "CBOT:ZQ1!", displayName: "30-Day FED Funds IR" },
+                    { name: "CBOT:ZB1!", displayName: "T-Bond" }
+                  ]
+                }
+              ],
+              colorTheme: "light"
+            })
+          }}
+        />
       </div>
-
-      {/* Load the pym.js script */}
-      <Script
-        src="//dailymetalprice.com/js/pym.min.js"
-        strategy="afterInteractive"
-        onLoad={() => {
-          if (window.pym) {
-            if (!widgetLoaded.current.charts) {
-              new window.pym.Parent("DMPC_1", "//dailymetalprice.com/charts.php?dark&bg=111827&text=ffffff", {})
-              widgetLoaded.current.charts = true
-            }
-            if (!widgetLoaded.current.prices) {
-              new window.pym.Parent("DMP_1", "//dailymetalprice.com/prices.php?dark&bg=111827&text=ffffff", {})
-              widgetLoaded.current.prices = true
-            }
-          }
-        }}
-      />
-
-      {/* Add a fallback message in case the widget fails to load */}
-      <noscript>
-        <p className="text-yellow-500 mt-2">
-          JavaScript is required to view the metal prices widget. Please enable JavaScript in your browser.
-        </p>
-      </noscript>
     </div>
   )
 }
