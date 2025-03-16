@@ -41,7 +41,7 @@ export default function Home() {
 
             <div className="border-b border-green-800 pb-4">
               <p className="text-xs text-green-400">$ ./fetch-copper-price</p>
-              <div className="mt-2">
+              <div className="my-4">
                 <DailyMetalPriceWidget />
               </div>
             </div>
