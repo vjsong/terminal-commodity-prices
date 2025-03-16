@@ -4,31 +4,54 @@ import { useEffect, useRef } from "react"
 import Script from "next/script"
 
 export default function DailyMetalPriceWidget() {
-  const widgetLoaded = useRef(false)
+  const widgetLoaded = useRef({ charts: false, prices: false })
 
   useEffect(() => {
-    // This ensures we don't try to initialize the widget multiple times
-    if (widgetLoaded.current) return
+    // This ensures we don't try to initialize the widgets multiple times
+    if (widgetLoaded.current.charts && widgetLoaded.current.prices) return
 
     // Check if the pym.js script has already been loaded and initialized
     if (window.pym) {
-      const pymParent = new window.pym.Parent("DMPC_1", "//dailymetalprice.com/charts.php?dark", {})
-      widgetLoaded.current = true
+      if (!widgetLoaded.current.charts) {
+        new window.pym.Parent("DMPC_1", "//dailymetalprice.com/charts.php?dark", {})
+        widgetLoaded.current.charts = true
+      }
+      if (!widgetLoaded.current.prices) {
+        new window.pym.Parent("DMP_1", "//dailymetalprice.com/prices.php?dark", {})
+        widgetLoaded.current.prices = true
+      }
     }
   }, [])
 
   return (
     <div className="metal-price-widget">
-      <div id="DMPC_1" data-pym-src="//dailymetalprice.com/charts.php?dark" className="w-full min-h-[400px]"></div>
+      {/* Container for both widgets with responsive layout */}
+      <div className="flex flex-col lg:flex-row gap-4">
+        {/* Charts widget */}
+        <div className="flex-1">
+          <div id="DMPC_1" data-pym-src="//dailymetalprice.com/charts.php?dark" className="w-full min-h-[400px]"></div>
+        </div>
+        
+        {/* Prices widget */}
+        <div className="flex-1">
+          <div id="DMP_1" data-pym-src="//dailymetalprice.com/prices.php?dark" className="w-full min-h-[400px]"></div>
+        </div>
+      </div>
 
       {/* Load the pym.js script */}
       <Script
         src="//dailymetalprice.com/js/pym.min.js"
         strategy="afterInteractive"
         onLoad={() => {
-          if (!widgetLoaded.current && window.pym) {
-            const pymParent = new window.pym.Parent("DMPC_1", "//dailymetalprice.com/charts.php?dark", {})
-            widgetLoaded.current = true
+          if (window.pym) {
+            if (!widgetLoaded.current.charts) {
+              new window.pym.Parent("DMPC_1", "//dailymetalprice.com/charts.php?dark", {})
+              widgetLoaded.current.charts = true
+            }
+            if (!widgetLoaded.current.prices) {
+              new window.pym.Parent("DMP_1", "//dailymetalprice.com/prices.php?dark", {})
+              widgetLoaded.current.prices = true
+            }
           }
         }}
       />

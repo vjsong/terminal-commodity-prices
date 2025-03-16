@@ -1,4 +1,6 @@
 interface Window {
-  pym?: any
+  pym: {
+    Parent: new (id: string, url: string, config: object) => any;
+  }
 }
 
