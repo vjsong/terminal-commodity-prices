@@ -1,9 +1,35 @@
 "use client"
 
-import React, { useEffect, useRef, memo } from 'react'
+import React, { useEffect, useRef, memo, useState } from 'react'
+
+function LoadingSpinner() {
+  const [dots, setDots] = useState('.')
+  
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setDots(prev => {
+        if (prev === '...') return '.'
+        return prev + '.'
+      })
+    }, 500)
+
+    return () => clearInterval(interval)
+  }, [])
+
+  return (
+    <div className="absolute inset-0 flex items-center justify-center bg-black">
+      <div className="flex flex-col items-center">
+        <pre className="font-mono text-green-400">
+          {`[*] Fetching market data${dots}`}
+        </pre>
+      </div>
+    </div>
+  )
+}
 
 function TickerTapeWidget() {
   const container = useRef<HTMLDivElement>(null)
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     if (!container.current) return
@@ -50,6 +76,10 @@ function TickerTapeWidget() {
       "locale": "en"
     })
 
+    script.onload = () => {
+      setIsLoading(false)
+    }
+
     container.current.appendChild(script)
 
     return () => {
@@ -60,14 +90,16 @@ function TickerTapeWidget() {
   }, [])
 
   return (
-    <div className="tradingview-widget-container mb-4" ref={container}>
-      <div className="tradingview-widget-container__widget"></div>
+    <div className="tradingview-widget-container mb-4 relative h-[42px]" ref={container}>
+      {isLoading && <LoadingSpinner />}
+      <div className={`tradingview-widget-container__widget ${isLoading ? 'invisible' : 'visible'}`}></div>
     </div>
   )
 }
 
 function MiniSymbolWidget({ symbol, containerId }: { symbol: string; containerId: string }) {
   const container = useRef<HTMLDivElement>(null)
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     if (!container.current) return
@@ -94,6 +126,10 @@ function MiniSymbolWidget({ symbol, containerId }: { symbol: string; containerId
       "gridLineColor": "rgba(255, 255, 255, 0.1)"
     })
 
+    script.onload = () => {
+      setIsLoading(false)
+    }
+
     container.current.appendChild(script)
 
     return () => {
@@ -104,8 +140,9 @@ function MiniSymbolWidget({ symbol, containerId }: { symbol: string; containerId
   }, [symbol])
 
   return (
-    <div className="tradingview-widget-container w-full h-[220px]" ref={container}>
-      <div className="tradingview-widget-container__widget h-full"></div>
+    <div className="tradingview-widget-container relative w-full h-[220px]" ref={container}>
+      {isLoading && <LoadingSpinner />}
+      <div className={`tradingview-widget-container__widget h-full ${isLoading ? 'invisible' : 'visible'}`}></div>
     </div>
   )
 }
@@ -113,8 +150,8 @@ function MiniSymbolWidget({ symbol, containerId }: { symbol: string; containerId
 function MetalPriceGrid() {
   const metals = [
     { symbol: "COMEX:HG1!", name: "Copper" },
-    { symbol: "COMEX:LTH1!", name: "Lithium" },
-    { symbol: "COMEX:SI1!", name: "Silver" },
+    { symbol: "COMEX:UX1!", name: "Uranium" },
+    { symbol: "NYMEX:NG1!", name: "Natural Gas" },
     { symbol: "COMEX:TIO1!", name: "Iron Ore" }
   ]
 

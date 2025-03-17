@@ -3,19 +3,23 @@ import { cn } from "@/lib/utils"
 
 interface TerminalProps extends React.HTMLAttributes<HTMLDivElement> {}
 
-const Terminal = React.forwardRef<HTMLDivElement, TerminalProps>(({ className, children, ...props }, ref) => {
+export function Terminal({
+  children,
+  className,
+  ...props
+}: TerminalProps) {
   return (
     <div
-      ref={ref}
-      className={cn("rounded border border-green-800 bg-black p-4 font-mono text-green-500 shadow-md", className)}
+      className={cn(
+        "rounded-lg border border-green-800/50 bg-black/50 p-2 sm:p-4",
+        className
+      )}
       {...props}
     >
       {children}
     </div>
   )
-})
+}
 
 Terminal.displayName = "Terminal"
-
-export { Terminal }
 
